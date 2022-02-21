@@ -13,15 +13,14 @@ public class RGBAnalyzer{
 
     private static final int MAX_COVER = 1000;
 
-    private static final String FILE_DIR="/images/";
 
     public String core(String fileName) throws IOException {
-        return traverse(FILE_DIR+fileName);
+        return traverse(fileName);
     }
 
-    private String traverse(String filePath)throws IOException{
+    private String traverse(String fileName)throws IOException{
         int[] rgb = new int[3];
-        File file = new  File("test2.png");
+        File file = new  File(fileName);
         System.out.println(file.getAbsolutePath());
         BufferedImage bi=null;
         bi = ImageIO.read(file);
@@ -42,7 +41,7 @@ public class RGBAnalyzer{
                 rgb[0] = (pixel &  0xff0000) >> 16;
                 rgb[1] = (pixel &  0xff00) >> 8;
                 rgb[2] = (pixel &  0xff);
-                rgb_string=rgb[0]+","+rgb[1]+","+rgb[2];
+                rgb_string="{R:"+rgb[0]+",G:"+rgb[1]+",B:"+rgb[2]+"}";
                 rgbMap.putIfAbsent(rgb_string,0);
                 rgbMap.put(rgb_string,rgbMap.get(rgb_string)+1);
                 rgbTreeMap.put(rgb_string,rgbMap.get(rgb_string));
