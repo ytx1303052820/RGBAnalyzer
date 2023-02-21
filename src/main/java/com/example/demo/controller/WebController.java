@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.core.RGBAnalyzer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +14,8 @@ import java.util.Date;
 
 @RestController
 public class WebController {
+    @Value("${store.file.path}")
+    private String storeFilePath;
 
     @Autowired
     RGBAnalyzer rgbAnalyzer;
@@ -39,7 +43,7 @@ public class WebController {
         //return upload(multipartFile).replaceAll("\\\\", "/");
     }
     public String upload(MultipartFile multipartFile) {
-        String filePath = "/opt/RGB_Analyzer/upload_files/" +multipartFile.getOriginalFilename();
+        String filePath = storeFilePath+"/" +multipartFile.getOriginalFilename();
         //String filePath="D:/Users/Administrator/IdeaProjects/RGBAnalyzer/"+multipartFile.getOriginalFilename();;
         File file = new File(filePath);
         if (!file.exists()) {
